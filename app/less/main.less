@@ -1,0 +1,40 @@
+._clearfix(){
+    *zoom:1;
+    &:after{
+        content: "\0020"; display: block; height: 0; overflow: hidden; clear:both;
+    }
+}
+*{
+	padding: 0px;
+	margin: 0px;
+}
+body{
+	background: #ededed;
+}
+header{
+	padding: 20px 10px;
+	background: #fff;
+}
+
+.meun{
+	background: #555;
+	._clearfix();
+	li{
+		float: left;
+		display: block;
+		a{
+			display: block;
+			padding: 10px 10px;
+			color: #fff;
+			text-decoration: none;
+			&.active{
+				background: lighten(#555, 10%)
+			}
+		}
+	}
+
+}
+
+.contains{
+	padding: 10px;
+}
