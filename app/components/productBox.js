@@ -1,5 +1,9 @@
 import React,{Component} from 'react';
 import {Router,Route,Link,hashHistory} from 'react-router';
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 //es5
 class App extends Component {
 	render(){
@@ -41,9 +45,7 @@ class Nav extends Component {
 				}
 			</ul>
 		)
-
 	}
-	
 }
 class Index extends Component {
 	render(){
@@ -62,12 +64,61 @@ class About extends Component {
 	}
 }
 class List extends Component {
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {
+	  	list:"",
+	  	url:'https://offline-news-api.herokuapp.com/stories'
+	  };
+	}
+	componentDidMount() {
+		var me = this;
+		fetch(this.state.url).then(function(result){
+			if(result.status>=400){
+				throw new Error("请求错误")
+			}
+			return result.json();
+		}).then(function(data){
+			me.setState({list:data})
 
+		})
+	  
+	}
 	render(){
 		document.title="列表页";
+		var me = this;
+		// console.log(this.state.List)
+		var listStr = me.state.list==""?(<div>加载中</div>):(
+				<div>
+					<ul className="listWamp">
+					{
+						me.state.list.map(function(item,i){
+							return (
+								<li key={i}>
+									<h2>{item.title}</h2>
+			
+									<div className="body" dangerouslySetInnerHTML={{__html: item.body}}/>
+										
+								</li>
+							)
+						})	
+					}
+					</ul>
+				</div>
+			)
+
 		return (
-			<div>列表</div>
+
+			<div>{listStr}</div>
 		)
 	}
 }
-export {App,Index,About,List}
+class Detail extends Component{
+	render(){
+		return (
+			<div>详情{this.props.params.id} {this.props.location.query.ab}</div>
+		)
+	}
+}
+export {App,Index,About,List,Detail}

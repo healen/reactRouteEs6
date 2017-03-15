@@ -4,10 +4,11 @@ import {
 	App,
 	Index,
 	About,
-	List
+	List,
+	Detail
 } from './components/productBox';
 
-import {Router,Route,hashHistory} from 'react-router';
+import {Router,Route,hashHistory,browserHistory} from 'react-router';
 import './less/main.less'
 let routers = (
 	<Router history={hashHistory}>
@@ -15,6 +16,7 @@ let routers = (
 			<Route path="/index" component={Index}></Route>
 			<Route path="/about" component={About}></Route>
 			<Route path="/list" component={List}></Route>
+			<Route path="/detail/:id" component={Detail}></Route>
 		</Route>
 	</Router>
 )
