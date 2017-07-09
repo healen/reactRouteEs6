@@ -47,11 +47,16 @@ class Nav extends Component {
 		)
 	}
 }
+
 class Index extends Component {
 	render(){
 		document.title='首页';
 		return (
-			<div>首页</div>
+			<div>
+				首页
+				<div>{this.props.children}</div>
+			</div>
+
 		)
 	}
 }
@@ -121,4 +126,11 @@ class Detail extends Component{
 		)
 	}
 }
-export {App,Index,About,List,Detail}
+class Index1 extends Component {
+	render(){
+		return (
+			<div>i1</div>
+		)
+	}
+}
+export {App,Index,About,List,Detail,Index1}
